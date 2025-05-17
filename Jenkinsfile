@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub' // ID du credential Jenkins
-        IMAGE_NAME = 'xdsml/monimagejenkins' // Remplace par ton vrai nom d'image DockerHub
+        IMAGE_NAME = 'ismail402/monimagejenkins' // Ton vrai nom d’image DockerHub
     }
 
     stages {
