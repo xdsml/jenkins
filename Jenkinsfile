@@ -33,20 +33,21 @@ pipeline {
         }
 
         stage('Analyse SonarQube') {
-            steps {
-                withSonarQubeEnv('SonarLocal') {
-                    script {
-                        def scannerHome = tool 'SonarScannerCLI'
-                        sh """
-                            ${scannerHome} \
-                            -Dsonar.projectKey=tp-jenkins-sonar \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=http://172.20.10.3:9000 \
-                            -Dsonar.login=${SONAR_TOKEN}
-                        """
-                    }
-                }
+    steps {
+        withSonarQubeEnv('SonarLocal') {
+            script {
+                def scannerHome = tool 'SonarScannerCLI'
+                sh """
+                    ${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=tp-jenkins-sonar \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://172.20.10.3:9000 \
+                    -Dsonar.login=${SONAR_TOKEN}
+                """
             }
         }
+    }
+}
+
     }
 }
