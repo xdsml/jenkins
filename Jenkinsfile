@@ -34,7 +34,7 @@ pipeline {
 
         stage('Analyse SonarQube') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarLocal') {
                     sh """
                         sonar-scanner \
                         -Dsonar.projectKey=tp-jenkins-sonar \
