@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-       stage('Analyse SonarQube') {
+      stage('Analyse SonarQube') {
     steps {
         withSonarQubeEnv('SonarLocal') {
             sh '''/opt/sonar-scanner/bin/sonar-scanner \
@@ -43,6 +43,7 @@ pipeline {
         }
     }
 }
+
 
 
     }
