@@ -35,13 +35,14 @@ pipeline {
       stage('Analyse SonarQube') {
     steps {
         withSonarQubeEnv('SonarLocal') {
-            sh """
-                /opt/sonar-scanner/bin/sonar-scanner \
-                -Dsonar.projectKey=tp-jenkins-sonar \
-                -Dsonar.sources=. \
-                -Dsonar.host.url=http://172.20.10.3:9000 \
-                -Dsonar.login=${SONAR_TOKEN}
-            """
+           sh """
+    /opt/sonar-scanner/bin/sonar-scanner \
+    -Dsonar.projectKey=tp-jenkins-sonar \
+    -Dsonar.sources=. \
+    -Dsonar.host.url=http://172.20.10.3:9000 \
+    -Dsonar.login=${SONAR_TOKEN}
+"""
+
         }
     }
 }
