@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'ismail402/monimagejenkins'
-        SONAR_TOKEN = credentials('sonar-token')
     }
 
     stages {
@@ -32,23 +31,20 @@ pipeline {
             }
         }
 
-      stage('Analyse SonarQube') {
-    steps {
-        withSonarQubeEnv('SonarLocal') {
-           sh """
-    /opt/sonar-scanner/bin/sonar-scanner \
-    -Dsonar.projectKey=tp-jenkins-sonar \
-    -Dsonar.sources=. \
-    -Dsonar.host.url=http://172.20.10.3:9000 \
-    -Dsonar.login=${SONAR_TOKEN}
-"""
-
+        stage('Analyse SonarQube') {
+            steps {
+                withSonarQubeEnv('SonarLocal') {
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        sh '''#!/bin/bash
+                        /opt/sonar-scanner/bin/sonar-scanner \
+                        -Dsonar.projectKey=tp-jenkins-sonar \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://172.20.10.3:9000 \
+                        -Dsonar.login=$SONAR_TOKEN
+                        '''
+                    }
+                }
+            }
         }
-    }
-}
-
-
-
-
     }
 }
